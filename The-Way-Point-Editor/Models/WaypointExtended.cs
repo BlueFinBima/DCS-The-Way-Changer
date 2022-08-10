@@ -1,9 +1,15 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
+public interface IPrototype<T>
+{
+    T CreateDeepCopy();
+}
+
 namespace The_Way_Point_Editor.Models
 {
-    public class WaypointsExtended:Waypoints
+
+    public class WaypointsExtended : Waypoints
     {
         [JsonProperty("waypoints")]
         public List<WaypointExtended> waypoints { get; set; }
@@ -17,7 +23,7 @@ namespace The_Way_Point_Editor.Models
             tempWaypoints.version = version;
             tempWaypoints.type = type;
             tempWaypoints.waypoints = new List<Waypoint>();
-            foreach(WaypointExtended wp in waypoints)
+            foreach (WaypointExtended wp in waypoints)
             {
                 tempWaypoints.waypoints.Add(wp.DeExtend());
             }
@@ -26,22 +32,43 @@ namespace The_Way_Point_Editor.Models
         }
 
     }
-    public class WaypointExtended : Waypoint
+
+    public class WaypointExtended : Waypoint, IPrototype<WaypointExtended>
     {
         [JsonProperty("WaypointTypeIdentificationDescription")]
         public string WaypointTypeIdentificationDescription { get; set; }
+
+        public WaypointExtended()
+        {
+            Latitude = "00.00000000";
+            Longitude = "00.00000000";
+            Elevation = "0.00";
+            LatitudeHemisphere = "NORTH";
+            LongitudeHemisphere = "EAST";
+            WaypointType = "WP";
+            WaypointTypeIdentification = "";
+            WaypointTypeFreeText = "";
+        }
+
+        public WaypointExtended CreateDeepCopy()
+        {
+            var wp = (WaypointExtended)MemberwiseClone();
+            return wp;
+        }
         public Waypoint DeExtend()
         {
             Waypoint tempWaypoint = new Waypoint();
             tempWaypoint.Latitude = Latitude;
             tempWaypoint.Longitude = Longitude;
             tempWaypoint.Elevation = Elevation;
-            tempWaypoint.LatitudeHemisphere = LatitudeHemisphere;  
+            tempWaypoint.LatitudeHemisphere = LatitudeHemisphere;
             tempWaypoint.LongitudeHemisphere = LongitudeHemisphere;
             tempWaypoint.WaypointType = WaypointType;
             tempWaypoint.WaypointTypeIdentification = WaypointTypeIdentification;
-            tempWaypoint.WaypointTypeFreeText = WaypointTypeFreeText;   
+            tempWaypoint.WaypointTypeFreeText = WaypointTypeFreeText;
             return tempWaypoint;
         }
     }
 }
+
+

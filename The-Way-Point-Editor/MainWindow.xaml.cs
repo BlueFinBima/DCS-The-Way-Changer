@@ -102,7 +102,8 @@ namespace The_Way_Point_Editor
                         wp.WaypointTypeIdentificationDescription = GetAbbreviationDescription(wp.WaypointType, wp.WaypointTypeIdentification);
                     }
                     listboxWaypoints.ItemsSource = wpFile.waypoints;
-                    listboxLabel.Content = $"Waypoints for {wpFile.module}";
+                    TB_listboxLabel.Text = "Waypoints For Module:  " + wpFile.module;
+                    lbGrid.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
@@ -145,12 +146,46 @@ namespace The_Way_Point_Editor
                     listboxWaypoints.ItemsSource = null;
                     listboxWaypoints.Items.Clear();
                     listboxWaypoints.Items.Refresh();
-                    listboxLabel.Content = "Waypoints:";
+                    TB_listboxLabel.Text = "Waypoints For Module:";
+                    lbGrid.Visibility = Visibility.Hidden;
                     break;
                 case "Exit_Menu":
                     this.Close();
                     return;
                     break;
+                case "Add_Waypoint":
+                    if (listboxWaypoints.SelectedItem != null)
+                    {
+                        List<WaypointExtended> wps = listboxWaypoints.ItemsSource as List<WaypointExtended>;
+                        wps.Insert(listboxWaypoints.SelectedIndex+1, new WaypointExtended());
+                        listboxWaypoints.SelectedIndex++;
+                        listboxWaypoints.Items.Refresh();
+                    }
+                    break;
+                case "Clone_Waypoint":
+                    if (listboxWaypoints.SelectedItem != null)
+                    {
+                        List<WaypointExtended> wps = listboxWaypoints.ItemsSource as List<WaypointExtended>;
+                        WaypointExtended origWp = listboxWaypoints.SelectedItem as WaypointExtended;
+                        wps.Insert(listboxWaypoints.SelectedIndex + 1, origWp.CreateDeepCopy());
+                        listboxWaypoints.SelectedIndex++;
+                        listboxWaypoints.Items.Refresh();
+                    }
+                    break;
+                case "Delete_Waypoint":
+                    if (listboxWaypoints.SelectedItem != null)
+                    {
+                        List<WaypointExtended> wps = listboxWaypoints.ItemsSource as List<WaypointExtended>;
+                        wps.Remove(listboxWaypoints.SelectedItem as WaypointExtended);
+                        listboxWaypoints.Items.Refresh();
+                    }
+                    break;
+                case "Help":
+                    break;
+                case "About":
+                    break;
+
+
             }
         }
         private List<WaypointClass> GetAbbreviationClasses(String abbreviationsModule)
@@ -239,12 +274,44 @@ namespace The_Way_Point_Editor
             }
         }
 
-        private void ButtonClick(object sender, RoutedEventArgs e)
+        private void ButtonArrowClick(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             if (button != null)
             {
-
+                switch (button.Name)
+                {
+                    case "ButtonUpArrow":
+                        if (listboxWaypoints.SelectedItem != null)
+                        {
+                            List<WaypointExtended> wps = listboxWaypoints.ItemsSource as List<WaypointExtended>;
+                            WaypointExtended origWp = listboxWaypoints.SelectedItem as WaypointExtended;
+                            int currentPosition = listboxWaypoints.SelectedIndex;
+                            if (currentPosition > 0)
+                            {
+                                wps.Remove(origWp);
+                                wps.Insert(currentPosition - 1, origWp);
+                                listboxWaypoints.SelectedIndex--;
+                                listboxWaypoints.Items.Refresh();
+                            }
+                        }
+                        break;
+                    case "ButtonDownArrow":
+                        if (listboxWaypoints.SelectedItem != null)
+                        {
+                            List<WaypointExtended> wps = listboxWaypoints.ItemsSource as List<WaypointExtended>;
+                            WaypointExtended origWp = listboxWaypoints.SelectedItem as WaypointExtended;
+                            int currentPosition = listboxWaypoints.SelectedIndex;
+                            if (currentPosition <  wps.Count-1)
+                            {
+                                wps.Remove(origWp);
+                                wps.Insert(currentPosition + 1, origWp);
+                                listboxWaypoints.SelectedIndex++;
+                                listboxWaypoints.Items.Refresh();
+                            }
+                        }
+                        break;
+                }
             }
         }
         private void CheckBoxChanged(object sender, RoutedEventArgs e)

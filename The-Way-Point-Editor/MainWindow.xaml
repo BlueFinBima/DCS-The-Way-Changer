@@ -21,7 +21,6 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60" />
                         <ColumnDefinition Width="30" />
@@ -37,6 +36,7 @@
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="124" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="1" Grid.Column="0" Padding="0,0,10,0" Text="Positon:"/>
                     <TextBlock Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Text="Lat:"/>
@@ -55,6 +55,8 @@
                     <TextBlock Name="TB_Identification_Description" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4" Padding="5,0,10,0" Text="{Binding Path=WaypointTypeIdentificationDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="2" Padding="5,0,10,0" Text="Free Text:"/>
                     <TextBox Grid.Row="0" Grid.Column="12" Grid.ColumnSpan="1" Text="{Binding Path=WaypointTypeFreeText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button  VerticalAlignment="Center" HorizontalAlignment="Right" Name="ButtonUpArrow" Width="15" Height="15" Click="ButtonArrowClick" Grid.Row="0" Grid.Column="13" FontFamily="Marlett" FontSize="12" Content="5"/>
+                    <Button  VerticalAlignment="Center" HorizontalAlignment="Right" Name="ButtonDownArrow" Width="15" Height="15" Click="ButtonArrowClick" Grid.Row="1" Grid.Column="13" FontFamily="Marlett" FontSize="12" Content="6"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -75,7 +77,7 @@
                 <ToolBar>
                     <Menu>
                         <MenuItem Header="File" FontSize="14">
-                            <MenuItem x:Name="New_Menu" Header="_New" Click="Menu_Click" InputGestureText="Ctrl+N"/>
+                            <MenuItem x:Name="New_Menu" Header="_New" Click="Menu_Click" IsEnabled="False" InputGestureText="Ctrl+N"/>
                             <MenuItem x:Name="Open_Menu" Header="_Open" Click="Menu_Click" InputGestureText="Ctrl+O"/>
                             <MenuItem x:Name="Save_Menu" Header="_Save" Click="Menu_Click" InputGestureText="Ctrl+S"/>
                             <MenuItem x:Name="SaveAs_Menu" Header="S_ave As" Click="Menu_Click" InputGestureText="Ctrl+Shift+S"/>
@@ -84,8 +86,14 @@
                             <Separator />
                             <MenuItem x:Name="Exit_Menu" Header="_Exit" Click="Menu_Click" InputGestureText="Alt+F4"/>
                         </MenuItem>
-                        <MenuItem Header="Tools" FontSize="14" Visibility="Hidden">
-
+                        <MenuItem Header="Edit" FontSize="14" Visibility="Visible">
+                            <MenuItem x:Name="Add_Waypoint" Header="_Add" Click="Menu_Click" InputGestureText="Ctrl+N"/>
+                            <MenuItem x:Name="Clone_Waypoint" Header="_Clone" Click="Menu_Click" InputGestureText="Ctrl+C"/>
+                            <MenuItem x:Name="Delete_Waypoint" Header="_Delete" Click="Menu_Click" InputGestureText="Ctrl+X"/>
+                        </MenuItem>
+                        <MenuItem Header="Help" FontSize="14" Visibility="Visible">
+                            <MenuItem x:Name="Help" Header="_Help" Click="Menu_Click" InputGestureText="Ctrl+N"/>
+                            <MenuItem x:Name="About" Header="_About" Click="Menu_Click" InputGestureText="Ctrl+C"/>
                         </MenuItem>
                     </Menu>
                 </ToolBar>
@@ -94,7 +102,7 @@
         <Grid Name="WaypointCombos" Grid.Row="1" Margin="0,0,0,0" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="240" />
+                <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="240" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -103,15 +111,18 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Waypoint Type" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Row="0" Grid.Column="0" />
-            <ComboBox Name="cb_WaypointIdent" IsEnabled="False" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" Width="300" ItemsSource="{Binding}" HorizontalAlignment="Left" ItemTemplate="{StaticResource abbreviations}" SelectionChanged="CBSelectionChanged"/>
+            <ComboBox Name="cb_WaypointIdent" IsEnabled="False" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" Width="260" ItemsSource="{Binding}" HorizontalAlignment="Left" ItemTemplate="{StaticResource abbreviations}" SelectionChanged="CBSelectionChanged"/>
             <Label Content="Waypoint Ident" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Row="0" Grid.Column="1" />
             <ComboBox Name="cb_WaypointType" IsEnabled ="False" Grid.Column="0" Grid.Row="1" Margin="10,0,10,0" Width="60" ItemsSource="{Binding}" HorizontalAlignment="Left" ItemTemplate="{StaticResource waypointtypes}" SelectionChanged="CBSelectionChanged"/>
             <Label Content="Use Waypoint Definition" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Row="0" Grid.Column="2" />
             <CheckBox IsChecked="False" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1" Margin="10,0,10,0" Width="60" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" Name="ChB_Waypoint"/>
         </Grid>
-        <Grid Grid.Row="2" Margin="0,0,0,0">
+        <Grid Name="lbGrid" Grid.Row="2" Margin="0,0,0,0" Visibility="Hidden">
+
             <DockPanel>
-                <Label Name="listboxLabel" DockPanel.Dock="Top" FontSize="14" Margin="5" Content="Waypoints:"/>
+                <TextBlock Name="TB_listboxLabel" DockPanel.Dock="Top" FontWeight="Bold" FontSize="14" Margin="5" >
+                    Waypoints for DCS Module:
+                </TextBlock>
                 <ListBox Name="listboxWaypoints" ItemsSource="{Binding}"
                      ItemTemplate="{StaticResource waypoints}"
                      HorizontalContentAlignment="Stretch"
