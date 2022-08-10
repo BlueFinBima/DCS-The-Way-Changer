@@ -1,0 +1,10 @@
+{"comments":"","module":"AH-64D_BLK_II","commit":"","vehicles":[],"source":"DCS The Way","type":"","version":"1.5.1.2",
+"waypoints":[
+    {"LatitudeHemisphere":"SOUTH","Elevation":"20.557443618774","LongitudeHemisphere":"WEST","WaypointTypeIdentification":"AP","WaypointType":"CM","Latitude":"51.685926282429","Longitude":"57.77773838786","WaypointTypeFreeText":"STN"},
+    {"LatitudeHemisphere":"SOUTH","Elevation":"7.7647805213928","LongitudeHemisphere":"WEST","WaypointTypeIdentification":"SP","WaypointType":"WP","Latitude":"51.649172727563","Longitude":"57.815739168763","WaypointTypeFreeText":"BCH"},
+    {"LatitudeHemisphere":"SOUTH","Elevation":"219.20372009277","LongitudeHemisphere":"WEST","WaypointTypeIdentification":"GS","WaypointType":"TG","Latitude":"51.628862523014","Longitude":"57.826828464149","WaypointTypeFreeText":"SP1"},
+    {"LatitudeHemisphere":"SOUTH","Elevation":"227.22937011719","LongitudeHemisphere":"WEST","WaypointTypeIdentification":"GS","WaypointType":"TG","Latitude":"51.628151444302","Longitude":"57.830793333504","WaypointTypeFreeText":"SP2"},
+    {"LatitudeHemisphere":"SOUTH","Elevation":"223.3990020752","LongitudeHemisphere":"WEST","WaypointTypeIdentification":"GS","WaypointType":"TG","Latitude":"51.627311769099","Longitude":"57.834824343979","WaypointTypeFreeText":"SP3"},
+    {"LatitudeHemisphere":"SOUTH","Elevation":"55.819473266602","LongitudeHemisphere":"WEST","WaypointTypeIdentification":"EM","WaypointType":"CM","Latitude":"51.611149714809","Longitude":"57.844537210642","WaypointTypeFreeText":"PC1"},
+    {"LatitudeHemisphere":"SOUTH","Elevation":"54.556861877441","LongitudeHemisphere":"WEST","WaypointTypeIdentification":"EM","WaypointType":"CM","Latitude":"51.607318988838","Longitude":"57.860644316899","WaypointTypeFreeText":"PC2"}
+    ]}
