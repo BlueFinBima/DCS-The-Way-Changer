@@ -2,14 +2,32 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <RootNamespace>The_Way_Point_Editor</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <PackageIcon>icons8-waypoint-map-96.png</PackageIcon>
+    <StartupObject>The_Way_Point_Editor.App</StartupObject>
+    <ApplicationIcon>resources\icons\Pixelkit-Flat-Jewels-Location.ico</ApplicationIcon>
+    <Description>Simple Editor for Waypoints created by DCS The Way</Description>
+    <Copyright>(c) 2022 BlueFinBima All Rights Reserved</Copyright>
+    <PackageProjectUrl>https://github.com/BlueFinBima/DCS-The-Way-Changer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BlueFinBima/DCS-The-Way-Changer/blob/main/README.md</RepositoryUrl>
+    <PackageTags>DCS;DCSWorld;Waypoints;Navigation</PackageTags>
+    <BaseOutputPath>bin\</BaseOutputPath>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <FileVersion>0.0.1</FileVersion>
+	<LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="resources\abbreviations.json" />
+    <None Remove="resources\icons\Icon1.ico" />
+    <None Remove="resources\icons\icons8-waypoint-map-24.png" />
+    <None Remove="resources\icons\icons8-waypoint-map-48.png" />
+    <None Remove="resources\icons\Pixelkit-Flat-Jewels-Location.ico" />
+    <None Remove="resources\icons\SitesFolder_256x256_icon-icons.com_76747.png" />
     <None Remove="Test\waypoints.json" />
   </ItemGroup>
 
@@ -17,6 +35,12 @@
     <Content Include="resources\abbreviations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="resources\icons\Icon1.ico" />
+    <Resource Include="resources\icons\icons8-waypoint-map-24.png" />
+    <Resource Include="resources\icons\icons8-waypoint-map-48.png" />
+    <Resource Include="resources\icons\icons8-waypoint-map-96.png" />
+    <Resource Include="resources\icons\Pixelkit-Flat-Jewels-Location.ico" />
+    <Resource Include="resources\icons\SitesFolder_256x256_icon-icons.com_76747.png" />
     <Content Include="Test\waypoints.json" />
   </ItemGroup>
 
@@ -24,6 +48,37 @@
     <PackageReference Include="Microsoft.WindowsAPICodePack-Core" Version="1.1.0.2" />
     <PackageReference Include="Microsoft.WindowsAPICodePack-Shell" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="resources\icons\icons8-waypoint-map-96.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

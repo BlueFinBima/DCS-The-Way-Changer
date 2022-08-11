@@ -1,11 +1,11 @@
-﻿<Window x:Name="DCS_The_Way_Changer" x:Class="The_Way_Point_Editor.MainWindow"
+﻿<Window x:Name="DCS_The_Way_Changer" x:Class="The_Way_Point_Editor.The_Way_Point_Editor_Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:The_Way_Point_Editor"
         mc:Ignorable="d"
-        Title="DCS: The Way Changer" Height="720" Width="800">
+        Title="DCS: The Way Changer" Height="720" Width="800" Icon="/resources/icons/SitesFolder_256x256_icon-icons.com_76747.png">
     <Window.Resources>
         <DataTemplate x:Key="abbreviations">
             <ComboBoxItem Content="{Binding Path=description}" Tag="{Binding Path=code}"/>
@@ -65,41 +65,46 @@
             <EventSetter Event="PreviewLostKeyboardFocus" Handler="DeselectCurrentItem"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Background="#196495ED" Opacity="50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="41*"/>
+            <ColumnDefinition Width="116*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
             <StackPanel Height="200" VerticalAlignment="Top">
                 <ToolBar>
                     <Menu>
                         <MenuItem Header="File" FontSize="14">
                             <MenuItem x:Name="New_Menu" Header="_New" Click="Menu_Click" IsEnabled="False" InputGestureText="Ctrl+N"/>
                             <MenuItem x:Name="Open_Menu" Header="_Open" Click="Menu_Click" InputGestureText="Ctrl+O"/>
-                            <MenuItem x:Name="Save_Menu" Header="_Save" Click="Menu_Click" InputGestureText="Ctrl+S"/>
-                            <MenuItem x:Name="SaveAs_Menu" Header="S_ave As" Click="Menu_Click" InputGestureText="Ctrl+Shift+S"/>
+                            <MenuItem x:Name="Save_Menu" Header="_Save" Click="Menu_Click" IsEnabled="False" InputGestureText="Ctrl+S"/>
+                            <MenuItem x:Name="SaveAs_Menu" Header="S_ave As" Click="Menu_Click" IsEnabled="False" InputGestureText="Ctrl+Shift+S"/>
                             <Separator />
-                            <MenuItem x:Name="Close_Menu" Header="_Close" Click="Menu_Click" InputGestureText="Ctrl+D"/>
+                            <MenuItem x:Name="Close_Menu" Header="_Close" Click="Menu_Click"/>
                             <Separator />
                             <MenuItem x:Name="Exit_Menu" Header="_Exit" Click="Menu_Click" InputGestureText="Alt+F4"/>
                         </MenuItem>
                         <MenuItem Header="Edit" FontSize="14" Visibility="Visible">
-                            <MenuItem x:Name="Add_Waypoint" Header="_Add" Click="Menu_Click" InputGestureText="Ctrl+N"/>
+                            <MenuItem x:Name="Add_Waypoint" Header="_Add" Click="Menu_Click"/>
                             <MenuItem x:Name="Clone_Waypoint" Header="_Clone" Click="Menu_Click" InputGestureText="Ctrl+C"/>
                             <MenuItem x:Name="Delete_Waypoint" Header="_Delete" Click="Menu_Click" InputGestureText="Ctrl+X"/>
                         </MenuItem>
                         <MenuItem Header="Help" FontSize="14" Visibility="Visible">
-                            <MenuItem x:Name="Help" Header="_Help" Click="Menu_Click" InputGestureText="Ctrl+N"/>
-                            <MenuItem x:Name="About" Header="_About" Click="Menu_Click" InputGestureText="Ctrl+C"/>
+                            <MenuItem x:Name="Help" Header="_Help" Click="Menu_Click"/>
+                            <MenuItem x:Name="About" Header="_About" Click="Menu_Click"/>
                         </MenuItem>
                     </Menu>
                 </ToolBar>
             </StackPanel>
         </Grid>
-        <Grid Name="WaypointCombos" Grid.Row="1" Margin="0,0,0,0" Visibility="Hidden">
+        <Grid Name="WaypointCombos" Grid.Row="1" Visibility="Hidden" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="300" />
@@ -117,7 +122,7 @@
             <Label Content="Use Waypoint Definition" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Row="0" Grid.Column="2" />
             <CheckBox IsChecked="False" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1" Margin="10,0,10,0" Width="60" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" Name="ChB_Waypoint"/>
         </Grid>
-        <Grid Name="lbGrid" Grid.Row="2" Margin="0,0,0,0" Visibility="Hidden">
+        <Grid Name="lbGrid" Grid.Row="2" Visibility="Hidden" Grid.ColumnSpan="3">
 
             <DockPanel>
                 <TextBlock Name="TB_listboxLabel" DockPanel.Dock="Top" FontWeight="Bold" FontSize="14" Margin="5" >

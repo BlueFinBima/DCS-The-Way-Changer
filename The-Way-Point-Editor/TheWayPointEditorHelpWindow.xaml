@@ -1,0 +1,74 @@
+﻿<Window x:Class="The_Way_Point_Editor.TheWayPointEditorHelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:The_Way_Point_Editor"
+        mc:Ignorable="d"
+        Title="The Way Point Editor Help" Height="600" Width="900">
+    <Border Name="border" BorderBrush="DarkSlateBlue" BorderThickness="2"  
+      CornerRadius="5
+            " Padding="5" Margin="5">
+
+        <Grid  Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" FontWeight="Bold" FontSize="14">
+        Help for The Way Point Manager
+        <LineBreak/>
+        Workflow
+        </TextBlock >        
+        <TextBlock Grid.Row="1">
+
+        <TextBlock TextWrapping="Wrap"  FontSize="14">
+1. Ensure that the installation instructions for "DCS The Way" at https://github.com/BlueFinBima/DCS-The-Way#how-to-install are followed
+<LineBreak/>
+2. Start "DCS The Way" with the following command from a windows command prompt `theway.exe -s -o c:\temp\waypoints.json`
+<LineBreak/>
+3. Collect your waypoints from the F10 map
+<LineBreak/>
+4. When all of the waypoints have been collected click the button `Send to DCS`
+<LineBreak/>
+5. close the "DCS The Way" window.
+<LineBreak/>
+6. The file `c:\temp\waypoints.json` should have been created.
+<LineBreak/>
+7. Start `The-Way-Point-Editor.exe` and from the menu bar, select File -> Open to open the file  `c:\temp\waypoints.json`
+<LineBreak/>
+8. Edit the waypoints as desired, and when complete, Use the save option from the menu bar to save `c:\temp\waypoints_new.json` 
+<LineBreak/>
+            **Note** it is vital that for the AH-64D apache, the waypoint type and waypoint identifier are a valid combination as per the DCS manual.
+<LineBreak/>
+            <TextBlock Padding="30,0,0,0">
+            a. For the AH-64D Apache, you should have drop downs at the top of the screen to help set valid waypoints.
+<LineBreak/>
+            b. Check the `Use Waypoint Definition` checkbox
+<LineBreak/>
+            c. select your desired waypoint information
+<LineBreak/>
+            d. Select the waypoint you want to change, and the waypoint type should appear
+<LineBreak/>
+            e. select another waypoint type
+<LineBreak/>
+            f. select the waypoint
+<LineBreak/>
+            g. When complete, uncheck the  `Use Waypoint Definition` checkbox
+                </TextBlock>
+<LineBreak/>
+            10. Start "DCS The Way" with the following command from a windows command prompt `theway.exe -i c:\temp\waypoints_new.json`
+<LineBreak/>
+            11. Check that the "DCS The Way" window shows that there are waypoints available.
+<LineBreak/>
+           12. Make sure that the aircraft is in a state suitable to have the waypoints entered, and then click the button `Send to DCS`
+<LineBreak/>
+            13. Wait for all of the waypoints to be entered into the aircraft, then go have some fun.
+        </TextBlock>
+
+            </TextBlock>
+    </Grid>
+    </Border> 
+
+</Window>

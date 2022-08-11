@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,15 +14,17 @@ using The_Way_Point_Editor.Models;
 namespace The_Way_Point_Editor
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for The_Way_Point_Editor_Window.xaml
     /// </summary> 
-    public partial class MainWindow : Window
+    public partial class The_Way_Point_Editor_Window : Window
     {
+        public const string ProjectRepository = "https://github.com/BlueFinBima/DCS-The-Way-Changer/";
+
         private static List<WaypointClass> _abbreviationClasses = null;
         private static WaypointsExtended _waypoints = null;
         private static bool _isWaypointDefinitionUsed = false;
 
-        public MainWindow()
+        public The_Way_Point_Editor_Window()
         {
             InitializeComponent();
         }
@@ -133,6 +136,8 @@ namespace The_Way_Point_Editor
             {
                 case "Open_Menu":
                     LoadWaypoints();
+                    SaveAs_Menu.IsEnabled = true;
+                    Save_Menu.IsEnabled = true;
                     break;
                 case "Save_Menu":
                     SaveWaypoints();
@@ -148,6 +153,8 @@ namespace The_Way_Point_Editor
                     listboxWaypoints.Items.Refresh();
                     TB_listboxLabel.Text = "Waypoints For Module:";
                     lbGrid.Visibility = Visibility.Hidden;
+                    SaveAs_Menu.IsEnabled = false;
+                    Save_Menu.IsEnabled = false;
                     break;
                 case "Exit_Menu":
                     this.Close();
@@ -181,8 +188,11 @@ namespace The_Way_Point_Editor
                     }
                     break;
                 case "Help":
+                    TheWayPointEditorHelpWindow HelpWindow = new TheWayPointEditorHelpWindow();
+                    HelpWindow.Show();
                     break;
                 case "About":
+                    MessageBox.Show(this,$"DCS The Way Changer V{typeof(The_Way_Point_Editor_Window).Assembly.GetName().Version}\n from {ProjectRepository}","About this Program");
                     break;
 
 
@@ -321,7 +331,11 @@ namespace The_Way_Point_Editor
             {
                 _isWaypointDefinitionUsed = (bool) checkBox.IsChecked;
                 cb_WaypointType.IsEnabled = _isWaypointDefinitionUsed;
-                cb_WaypointIdent.IsEnabled = _isWaypointDefinitionUsed;              
+                cb_WaypointIdent.IsEnabled = _isWaypointDefinitionUsed; 
+                if (_isWaypointDefinitionUsed)
+                {
+                    listboxWaypoints.SelectedItem = null;
+                }
             }
         }
 
